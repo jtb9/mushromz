@@ -1,11 +1,10 @@
-import logo from './logo.svg';
 import 'react-awesome-button/dist/styles.css';
 import './App.css';
 import { AwesomeButton } from 'react-awesome-button';
 import { useEffect, useCallback, useState } from 'react';
 import { ColorRing } from 'react-loader-spinner'
 import { useInterval } from 'usehooks-ts'
-import { Map, Marker, Overlay } from "pigeon-maps"
+import { Map, Marker } from "pigeon-maps"
 import { osm } from 'pigeon-maps/providers'
 import Webcam from "react-webcam";
 import React from 'react';
@@ -31,7 +30,9 @@ const formatedTimestamp = ()=> {
 function App() {
   const webcamRef = React.useRef(null);
   const [gpsLocation, setGpsLocation] = useState(0);
+  // eslint-disable-next-line
   const [gpsDelay, setGPSDelay] = useState(1500);
+  // eslint-disable-next-line
   const [gpsDataOn, setGpsDataOn] = useState(true);
   const [capturingMushroom, setCapturingMushroom] = useState(false);
   const [savingMushroom, setSavingMushroom] = useState(false);
@@ -63,6 +64,7 @@ function App() {
 
   useEffect(() => {
     refreshMushroomData();
+    // eslint-disable-next-line
   }, [])
 
   const refreshMushroomData = () => {
@@ -160,7 +162,7 @@ function App() {
 
   const renderMushroomTableEntry = (info) => {
     return <div style={{display: 'flex', flexDirection: 'row', height: '30px', width: '290px'}}>
-      <img style={{height: '30px', width: '30px'}} src={info.image} />
+      <img style={{height: '30px', width: '30px'}} src={info.image} alt={info.date} />
       <div style={{height: '30px', width: '100px', color: 'black', fontSize: '12px'}}>{info.date}</div>
       <div style={{height: '30px', width: '80px', color: 'black', fontSize: '12px'}}>{info.latitude}</div>
       <div style={{height: '30px', width: '80px', color: 'black', fontSize: '12px'}}>{info.longitude}</div>
@@ -213,7 +215,7 @@ function App() {
           anchor={[parseFloat(mushrooms[i].latitude), parseFloat(mushrooms[i].longitude)]}
           width={75}
         >
-          <img src={mushrooms[i].image} width={75} height={75} alt='' />
+          <img src={mushrooms[i].image} width={75} height={75} alt={mushrooms[i].date} />
         </Marker>
       )
     }
@@ -221,7 +223,7 @@ function App() {
     return <Map animate={true} key={'mu-' + markers.length} provider={osm} width={window.innerWidth} height={window.innerHeight} defaultCenter={[gpsLocation.latitude, gpsLocation.longitude]} defaultZoom={16}>
       {markers}
     </Map>
-  }, [gpsLocation, mushrooms, window]);
+  }, [gpsLocation, mushrooms]);
 
   const renderInputMap = () => {
     return <div>
