@@ -1,0 +1,32 @@
+service: mushromz
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+
+functions:
+  index:
+    handler: handler.handler
+    events:
+      - httpApi:
+          path: /{proxy+}
+          method: any
+          cors: true
+    environment:
+      MUSHROMZ_CONNECTION_STRING: ${env:MUSHROMZ_CONNECTION_STRING}
+#    Define function environment variables here
+#    environment:
+#      variable2: value2
+
+# you can add CloudFormation resource templates here
+#resources:
+#  Resources:
+#    NewResource:
+#      Type: AWS::S3::Bucket
+#      Properties:
+#        BucketName: my-new-bucket
+#  Outputs:
+#     NewOutput:
+#       Description: "Description for the output"
+#       Value: "Some output value"

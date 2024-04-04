@@ -1,0 +1,95 @@
+
+/*
+
+  green - #5AAF94
+  white - #FFFFF2
+  purple - #791E94
+  orange - #DE6449
+  brown - #A38560
+
+*/
+
+.aws-btn {
+  --button-default-height: 44px;
+  --button-default-font-size: 16px;
+  --button-default-border-radius: 13px;
+  --button-horizontal-padding: 17px;
+  --button-raise-level: 2px;
+  --button-hover-pressure: 1;
+  --transform-speed: 0.15s;
+  --button-primary-color: #A38560;
+  --button-primary-color-dark: #80684a;
+  --button-primary-color-light: #FFFFF2;
+  --button-primary-color-hover: #a39a60;
+  --button-primary-color-active: #8a8358;
+  --button-primary-border: none;
+  --button-secondary-color: #f2f6f9;
+  --button-secondary-color-dark: #1360a4;
+  --button-secondary-color-light: #1e88e5;
+  --button-secondary-color-hover: #e1eaf1;
+  --button-secondary-color-active: #cfdee9;
+  --button-secondary-border: 2px solid #1e88e5;
+  --button-anchor-color: #0e4f88;
+  --button-anchor-color-dark: #072743;
+  --button-anchor-color-light: #ffffff;
+  --button-anchor-color-hover: #0d4a7f;
+  --button-anchor-color-active: #0c4271;
+  --button-anchor-border: none;
+  --button-danger-color: #c42e2e;
+  --button-danger-color-dark: #861f1f;
+  --button-danger-color-light: #ffffff;
+  --button-danger-color-hover: #bc2c2c;
+  --button-danger-color-active: #af2929;
+  --button-danger-border: none;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+body {
+  font-family: "Crimson Pro", serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  background-color: #DE6449;
+  color: #FFFFF2;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+p {
+  font-size: 18px;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
