@@ -146,7 +146,9 @@ function App() {
     }
 
     return <>
-      <Webcam ref={webcamRef} audio={false} screenshotFormat="image/jpeg" />
+      <Webcam  ref={webcamRef} videoConstraints={{
+      facingMode: { exact: "environment" }
+    }} audio={false} screenshotFormat="image/jpeg" />
       {renderCaptureMeta()}
       <AwesomeButton onPress={() => {
         handleCaptureMushroom({
@@ -157,6 +159,11 @@ function App() {
       }} style={{
         color: 'white'
       }} type="primary">Save</AwesomeButton>
+      <AwesomeButton onPress={() => {
+        setCapturingMushroom(false);
+      }} style={{
+        color: 'white'
+      }} type="primary">Done</AwesomeButton>
     </>
   }
 
