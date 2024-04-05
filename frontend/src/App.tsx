@@ -223,26 +223,26 @@ function App() {
     </div>
   }
 
-  const renderMushroomTableEntry = (info: any) => {
-    return <div style={{ display: 'flex', flexDirection: 'row', height: '30px', width: '290px' }}>
-      <img style={{ height: '30px', width: '30px' }} src={info.image} alt={info.date} />
-      <div style={{ height: '30px', width: '100px', color: 'black', fontSize: '12px' }}>{info.date}</div>
-      <div style={{ height: '30px', width: '80px', color: 'black', fontSize: '12px' }}>{info.latitude}</div>
-      <div style={{ height: '30px', width: '80px', color: 'black', fontSize: '12px' }}>{info.longitude}</div>
-    </div>
-  }
+  // const renderMushroomTableEntry = (info: any) => {
+  //   return <div style={{ display: 'flex', flexDirection: 'row', height: '30px', width: '290px' }}>
+  //     <img style={{ height: '30px', width: '30px' }} src={info.image} alt={info.date} />
+  //     <div style={{ height: '30px', width: '100px', color: 'black', fontSize: '12px' }}>{info.date}</div>
+  //     <div style={{ height: '30px', width: '80px', color: 'black', fontSize: '12px' }}>{info.latitude}</div>
+  //     <div style={{ height: '30px', width: '80px', color: 'black', fontSize: '12px' }}>{info.longitude}</div>
+  //   </div>
+  // }
 
-  const renderMushroomTable = () => {
-    let entries = [];
+  // const renderMushroomTable = () => {
+  //   let entries = [];
 
-    for (let i = 0; i < mushrooms.length; i++) {
-      entries.push(renderMushroomTableEntry(mushrooms[i]));
-    }
+  //   for (let i = 0; i < mushrooms.length; i++) {
+  //     entries.push(renderMushroomTableEntry(mushrooms[i]));
+  //   }
 
-    return <div style={{ display: 'flex', flexDirection: 'column', overflowY: 'scroll', maxHeight: '100px' }}>
-      {entries}
-    </div>
-  }
+  //   return <div style={{ display: 'flex', flexDirection: 'column', overflowY: 'scroll', maxHeight: '100px' }}>
+  //     {entries}
+  //   </div>
+  // }
 
   const renderControlHover = () => {
     if (selectedMushroom !== undefined) {
