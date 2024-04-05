@@ -97,13 +97,19 @@ function Mapz(props: any) {
   const handleDeleteMushroom = (id: string) => {
     setSavingMushroom(true);
 
-    axios.post(api, {
-      action: 'delete',
-      id: id
-    }).then((v) => {
-      setSavingMushroom(false);
-      refreshMushroomData();
-      setSelectedMushroom(undefined);
+    getToken().then((t) => {
+      axios.post(api, {
+        action: 'delete',
+        id: id
+      }, {
+        params: {
+          token: t
+        }
+      }).then((v) => {
+        setSavingMushroom(false);
+        refreshMushroomData();
+        setSelectedMushroom(undefined);
+      });
     });
   }
 
@@ -113,16 +119,21 @@ function Mapz(props: any) {
     const imageSrc = webcamRef.current.getScreenshot();
 
 
-
-    axios.post(api, {
-      action: 'add',
-      image: imageSrc,
-      latitude: info.latitude,
-      longitude: info.longitude,
-      date: info.date
-    }).then((v) => {
-      setSavingMushroom(false);
-      refreshMushroomData();
+    getToken().then((t) => {
+      axios.post(api, {
+        action: 'add',
+        image: imageSrc,
+        latitude: info.latitude,
+        longitude: info.longitude,
+        date: info.date
+      }, {
+        params: {
+          token: t
+        }
+      }).then((v) => {
+        setSavingMushroom(false);
+        refreshMushroomData();
+      });
     });
   }
 
@@ -278,7 +289,7 @@ function Mapz(props: any) {
             >Latitude: {selectedMushroom.latitude}</p>
             <p style={{ margin: '0px', color: 'rgba(0,0,0,0.8)', fontStyle: 'italic' }}>Date: {formatedTimestamp()}</p>
             <AwesomeButton onPress={() => {
-              
+
               getToken().then((t) => {
                 //@ts-ignore
                 window.open(`${api}?action=download&id=${selectedMushroom.id}&token=${t}`, '_blank', 'noopener, noreferrer');
@@ -359,41 +370,41 @@ function Mapz(props: any) {
     }
 
     return <div style={{ position: 'absolute', top: '0px', left: '0xp', display: 'flex', flexDirection: 'column', zIndex: '9999', backgroundColor: '#FFFFF2', borderRadius: '15px', border: '1px solid rgba(0,0,0,0.3)', width: '100%', height: '100%' }}>
-    <div style={{ position: 'relative', top: FLOATING_PADDING, left: FLOATING_PADDING }}>
-      {userButton}
+      <div style={{ position: 'relative', top: FLOATING_PADDING, left: FLOATING_PADDING }}>
+        {userButton}
+      </div>
+      <AwesomeButton onPress={() => {
+        setSettingsOpen(false);
+      }} style={{
+        color: 'white',
+        width: '100%',
+        marginTop: '30px'
+      }} type="secondary">Done</AwesomeButton>
     </div>
-    <AwesomeButton onPress={() => {
-      setSettingsOpen(false);
-    }} style={{
-      color: 'white',
-      width: '100%',
-      marginTop: '30px'
-    }} type="secondary">Done</AwesomeButton>
-  </div>
   }
 
-const renderInputMap = () => {
-  return <div>
-    {renderMapProvider()}
-    {renderControlHover()}
-    {renderLoadingIndicator()}
-    {renderSettingsHover()}
-  </div>
-};
+  const renderInputMap = () => {
+    return <div>
+      {renderMapProvider()}
+      {renderControlHover()}
+      {renderLoadingIndicator()}
+      {renderSettingsHover()}
+    </div>
+  };
 
-const renderInner = () => {
-  if (gpsLocation === 0) {
-    return renderWaitingForGPS();
+  const renderInner = () => {
+    if (gpsLocation === 0) {
+      return renderWaitingForGPS();
+    }
+
+    return renderInputMap();
   }
 
-  return renderInputMap();
-}
-
-return (
-  <div className="App">
-    {renderInner()}
-  </div>
-);
+  return (
+    <div className="App">
+      {renderInner()}
+    </div>
+  );
 }
 
 export default Mapz;
