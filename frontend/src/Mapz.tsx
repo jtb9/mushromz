@@ -223,8 +223,8 @@ function Mapz(props: any) {
       }} type="primary">+</AwesomeButton>
     }
 
-    return <div style={{ display: 'flex', flexDirection: 'column', zIndex: '9999', backgroundColor: '#FFFFF2', borderRadius: '15px', border: '1px solid rgba(0,0,0,0.3)' }}>
-      <Webcam ref={webcamRef} videoConstraints={calculateCameraConstraint()} audio={false} screenshotFormat="image/jpeg" />
+    return <div style={{ position: 'fixed', top: '0px', left: '0px', width: '100vw', height: '100vh', display: 'flex', flexDirection: 'column', zIndex: '9999', backgroundColor: '#FFFFF2', borderRadius: '15px', border: '1px solid rgba(0,0,0,0.3)' }}>
+      <Webcam style={{maxHeight: '70vh'}} ref={webcamRef} videoConstraints={calculateCameraConstraint()} audio={false} screenshotFormat="image/jpeg" />
       {renderCameraConstraintControl()}
       {renderCaptureMeta()}
       <AwesomeButton onPress={() => {
@@ -272,15 +272,18 @@ function Mapz(props: any) {
   const renderControlHover = () => {
     if (selectedMushroom !== undefined) {
       return <div style={{
-        position: 'absolute',
-        top: FLOATING_PADDING,
-        left: FLOATING_PADDING,
+        position: 'fixed',
+        top: '0px',
+        left: '0px',
+        width: '100vw',
+        height: '100vh',
+        zIndex: '9999999'
       }}>
-        <div style={{ display: 'flex', flexDirection: 'column', zIndex: '9999', backgroundColor: '#FFFFF2', borderRadius: '15px', border: '1px solid rgba(0,0,0,0.3)' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', width: '300px', color: 'black', textAlign: 'left', padding: '5px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', height: '100%', zIndex: '9999', backgroundColor: '#FFFFF2', borderRadius: '15px', border: '1px solid rgba(0,0,0,0.3)' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', height: '100%', color: 'black', textAlign: 'left', padding: '5px' }}>
             <img
               //@ts-ignore
-              src={selectedMushroom.image} alt="" />
+              src={selectedMushroom.image} style={{maxWidth: '300px'}} alt="" />
             <p style={{ margin: '0px', color: 'rgba(0,0,0,0.8)', fontStyle: 'italic' }}
             //@ts-ignore
             >Longitude: {selectedMushroom.longitude}</p>
@@ -317,6 +320,7 @@ function Mapz(props: any) {
       position: 'absolute',
       top: FLOATING_PADDING,
       left: FLOATING_PADDING,
+      zIndex: '10'
     }}>
       {renderCaptureControl()}
     </div>
