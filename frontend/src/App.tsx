@@ -94,6 +94,7 @@ function App() {
     }).then((v) => {
       setSavingMushroom(false);
       refreshMushroomData();
+      setSelectedMushroom(undefined);
     });
   }
 
