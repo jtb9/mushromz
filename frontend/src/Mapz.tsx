@@ -8,10 +8,11 @@ import Webcam from "react-webcam";
 import React from 'react';
 import axios from 'axios';
 import { colorRingColors } from './App';
+import { useAuth } from '@clerk/clerk-react';
 
 const api = 'https://y0qjfq7023.execute-api.us-east-1.amazonaws.com/';
 
-
+const FLOATING_PADDING = '10px';
 
 const formatedTimestamp = () => {
   const d = new Date()
@@ -21,6 +22,8 @@ const formatedTimestamp = () => {
 }
 
 function Mapz(props: any) {
+
+  const { getToken } = useAuth();
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const userButton = props.userButton;
@@ -77,10 +80,17 @@ function Mapz(props: any) {
     if (loadingMushrooms === false) {
       setLoadingMushrooms(true);
 
-      axios.get(api).then((v) => {
-        setMushrooms(v.data);
-        setLoadingMushrooms(false);
+      getToken().then((t) => {
+        axios.get(api, {
+          params: {
+            token: `${t}`
+          }
+        }).then((v) => {
+          setMushrooms(v.data);
+          setLoadingMushrooms(false);
+        })
       })
+
     }
   }
 
@@ -101,6 +111,8 @@ function Mapz(props: any) {
     setSavingMushroom(true);
     //@ts-ignore
     const imageSrc = webcamRef.current.getScreenshot();
+
+
 
     axios.post(api, {
       action: 'add',
@@ -250,8 +262,8 @@ function Mapz(props: any) {
     if (selectedMushroom !== undefined) {
       return <div style={{
         position: 'absolute',
-        top: '30px',
-        left: '30px',
+        top: FLOATING_PADDING,
+        left: FLOATING_PADDING,
       }}>
         <div style={{ display: 'flex', flexDirection: 'column', zIndex: '9999', backgroundColor: '#FFFFF2', borderRadius: '15px', border: '1px solid rgba(0,0,0,0.3)' }}>
           <div style={{ display: 'flex', flexDirection: 'column', width: '300px', color: 'black', textAlign: 'left', padding: '5px' }}>
@@ -265,6 +277,15 @@ function Mapz(props: any) {
             //@ts-ignore
             >Latitude: {selectedMushroom.latitude}</p>
             <p style={{ margin: '0px', color: 'rgba(0,0,0,0.8)', fontStyle: 'italic' }}>Date: {formatedTimestamp()}</p>
+            <AwesomeButton onPress={() => {
+              
+              getToken().then((t) => {
+                //@ts-ignore
+                window.open(`${api}?action=download&id=${selectedMushroom.id}&token=${t}`, '_blank', 'noopener, noreferrer');
+              });
+            }} style={{
+              color: 'white'
+            }} type="primary">Download</AwesomeButton>
             <AwesomeButton onPress={() => {
               //@ts-ignore
               handleDeleteMushroom(selectedMushroom.id);
@@ -283,8 +304,8 @@ function Mapz(props: any) {
 
     return <div style={{
       position: 'absolute',
-      top: '30px',
-      left: '30px',
+      top: FLOATING_PADDING,
+      left: FLOATING_PADDING,
     }}>
       {renderCaptureControl()}
     </div>
@@ -292,7 +313,7 @@ function Mapz(props: any) {
 
   const renderLoadingIndicator = () => {
     if (loadingMushrooms === true) {
-      return <div style={{ position: 'absolute', bottom: '30px', right: '30px' }}>
+      return <div style={{ position: 'absolute', bottom: FLOATING_PADDING, right: FLOATING_PADDING }}>
         {genericLoader()}
       </div>
     }
@@ -329,55 +350,50 @@ function Mapz(props: any) {
   }, [gpsLocation, mushrooms]);
 
   const renderSettingsHover = () => {
-    let innards = undefined;
-
     if (settingsOpen === false) {
-      innards = <img className='img-button' onClick={() => {
-        setSettingsOpen(true);
-      }} alt="settings menu" src="settings.svg" />
-    }
-    else {
-      innards = <div style={{ display: 'flex', flexDirection: 'column', zIndex: '9999', backgroundColor: '#FFFFF2', borderRadius: '15px', border: '1px solid rgba(0,0,0,0.3)', width: '300px', height: '200px' }}>
-        <div style={{ position: 'relative', top: '10px', left: '10px' }}>
-          {userButton}
-        </div>
-        <AwesomeButton onPress={() => {
-          setSettingsOpen(false);
-        }} style={{
-          color: 'white',
-          width: '100%',
-          marginTop: '30px'
-        }} type="secondary">Done</AwesomeButton>
+      return <div style={{ position: 'absolute', top: FLOATING_PADDING, right: FLOATING_PADDING }}>
+        <img className='img-button' style={{ opacity: '0.5' }} onClick={() => {
+          setSettingsOpen(true);
+        }} alt="settings menu" src="menu.svg" />
       </div>
     }
 
-    return <div style={{ position: 'absolute', top: '10px', right: '10px' }}>
-      {innards}
+    return <div style={{ position: 'absolute', top: '0px', left: '0xp', display: 'flex', flexDirection: 'column', zIndex: '9999', backgroundColor: '#FFFFF2', borderRadius: '15px', border: '1px solid rgba(0,0,0,0.3)', width: '100%', height: '100%' }}>
+    <div style={{ position: 'relative', top: FLOATING_PADDING, left: FLOATING_PADDING }}>
+      {userButton}
     </div>
+    <AwesomeButton onPress={() => {
+      setSettingsOpen(false);
+    }} style={{
+      color: 'white',
+      width: '100%',
+      marginTop: '30px'
+    }} type="secondary">Done</AwesomeButton>
+  </div>
   }
 
-  const renderInputMap = () => {
-    return <div>
-      {renderMapProvider()}
-      {renderControlHover()}
-      {renderLoadingIndicator()}
-      {renderSettingsHover()}
-    </div>
-  };
+const renderInputMap = () => {
+  return <div>
+    {renderMapProvider()}
+    {renderControlHover()}
+    {renderLoadingIndicator()}
+    {renderSettingsHover()}
+  </div>
+};
 
-  const renderInner = () => {
-    if (gpsLocation === 0) {
-      return renderWaitingForGPS();
-    }
-
-    return renderInputMap();
+const renderInner = () => {
+  if (gpsLocation === 0) {
+    return renderWaitingForGPS();
   }
 
-  return (
-    <div className="App">
-      {renderInner()}
-    </div>
-  );
+  return renderInputMap();
+}
+
+return (
+  <div className="App">
+    {renderInner()}
+  </div>
+);
 }
 
 export default Mapz;

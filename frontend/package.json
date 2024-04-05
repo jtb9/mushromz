@@ -18,6 +18,7 @@
     "react-dom": "^18.2.0",
     "react-loader-spinner": "^6.1.6",
     "react-scripts": "5.0.1",
+    "react-select": "^5.8.0",
     "react-webcam": "^7.2.0",
     "typescript": "^4.9.5",
     "usehooks-ts": "^3.1.0",

@@ -9,12 +9,13 @@ functions:
   index:
     handler: handler.handler
     events:
-      - httpApi:
-          path: /{proxy+}
-          method: any
-          cors: true
+    - httpApi:
+        path: /{proxy+}
+        method: any
+        cors: true
     environment:
       MUSHROMZ_CONNECTION_STRING: ${env:MUSHROMZ_CONNECTION_STRING}
+      CLERK_PEM_PUBLIC_KEY: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA5+OGKXqh774yM8YIg/gwi1WRFfLDyNvkZnUqdM6JdGJHj7rChIcmHeXcqNoDYtkO90YhCzccE11veUX+jnirBO6Emq5uoFtfHl8vz7mVjL6Hr5BDXnSF01feqPyfe9SeDKJOmDAt0W/U6fGSVUr7DooETQjAEUwJLuC/jWJbU4fVkBtDAnmybe66IYJec7uzo4zw77BMwOmJxTlsYo5qBT4BHll7dJ6AjLvpBq/MDrBDqiUU5ScLzEahZnGCjDeK9JZ9MbsPdfHCiVrTVhp8oXj9raIbOehXayayeKBVCtdmYqk2g0ukleFyYXtNUaUNCpM2L8kZyA6c44nB3UtsGQIDAQAB
 #    Define function environment variables here
 #    environment:
 #      variable2: value2

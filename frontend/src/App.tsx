@@ -12,6 +12,7 @@ export const colorRingColors = [
 ]
 
 function App() {
+
   return (
     <div>
       <SignedOut>
