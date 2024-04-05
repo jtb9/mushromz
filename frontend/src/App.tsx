@@ -32,6 +32,8 @@ function App() {
       <SignedOut>
         <div style={{width: '100%', height: '100%', marginTop: '100px'}}>
           <div className='signin' style={{width: '150px', margin: 'auto'}}>
+            <img style={{width: '150px', borderRadius: '12px'}} src="logo.jpeg" alt="logo"/>
+
             <SignInButton />
           </div>
         </div>
