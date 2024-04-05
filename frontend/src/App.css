@@ -43,6 +43,91 @@
   --button-danger-border: none;
 }
 
+.img-button {
+  width: 45px;
+  height: 45px;
+  color: #791E94;
+  fill: #791E94;
+}
+
+.img-button:hover {
+  cursor: pointer;
+  color: #FFFFF2;
+}
+
+.stack-count {
+  color: #FFFFF2;
+  background-color: #A38560;
+  border-radius: 360px;
+  width: 20px;
+  top: -5px;
+  position: relative;
+}
+
+.signin button {
+  align-items: center;
+  background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+  border: 0;
+  border-radius: 8px;
+  box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  display: flex;
+  font-family: Phantomsans, sans-serif;
+  font-size: 20px;
+  justify-content: center;
+  height: 40px;
+  line-height: 1em;
+  max-width: 100%;
+  min-width: 140px;
+  padding: 3px;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.signin button:active,
+.signin button:hover {
+  outline: 0;
+}
+
+.signin button span {
+  background-color: rgb(5, 6, 45);
+  padding: 16px 24px;
+  border-radius: 6px;
+  width: 100%;
+  height: 100%;
+  transition: 300ms;
+}
+
+.signin button:hover span {
+  background: none;
+}
+/* 
+button {
+  background-color: #A38560;
+  height: 44px;
+  font-size: 24px;
+  text-align: center;
+  width: 190px;
+  border-radius: 13px;
+  border: 1px solid #8a8358;
+  color: #FFFFF2;
+  padding: 15px;
+  line-height: 10px;
+  font-family: "Crimson Pro", serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: #a39a60;
+} */
+
 .App {
   text-align: center;
 }
