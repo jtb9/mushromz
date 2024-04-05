@@ -8,13 +8,28 @@ const {
 async function getAllMushrooms() {
   return new Promise((resolve, reject) => {
     connection.execute(
-      "SELECT * from mushromz",
+      "SELECT * from mushromz WHERE deleted = 0",
       [],
       function (err, results, fields) {
           resolve(results);
       }
     );
   });
+}
+
+async function deleteMushroom(id) {
+return new Promise((resolve, reject) => {
+  connection.execute(
+    "UPDATE `mushromz` SET `deleted`='1' WHERE (`mushromz`.`id` = ?)",
+    [id],
+    function (err, results, fields) {
+      if (err) {
+        console.log(err);
+      }
+        resolve(results);
+    }
+  );
+});
 }
 
 async function storeMushroom(image, latitude, longitude, date) {
@@ -46,6 +61,26 @@ module.exports.handler = async (event) => {
   }
   catch(e) {
 
+  }
+
+  if (action === 'delete') {
+    console.log("marking mushroom as deleted");
+
+    await deleteMushroom(body.id);
+
+    console.log('done');
+
+    return {
+      statusCode: 200,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': true,
+        'Access-Control-Allow-Headers': '*'
+      },
+      body: JSON.stringify({
+        status: 'done'
+      })
+    }
   }
 
   if (action === 'add') {
