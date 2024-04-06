@@ -283,7 +283,7 @@ function Mapz(props: any) {
           <div style={{ display: 'flex', flexDirection: 'column', height: '100%', color: 'black', textAlign: 'left', padding: '5px' }}>
             <img
               //@ts-ignore
-              src={selectedMushroom.image} style={{maxWidth: '300px'}} alt="" />
+              src={selectedMushroom.image} style={{width: '100vw'}} alt="" />
             <p style={{ margin: '0px', color: 'rgba(0,0,0,0.8)', fontStyle: 'italic' }}
             //@ts-ignore
             >Longitude: {selectedMushroom.longitude}</p>
