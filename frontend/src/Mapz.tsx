@@ -14,6 +14,8 @@ const api = 'https://y0qjfq7023.execute-api.us-east-1.amazonaws.com/';
 
 const FLOATING_PADDING = '10px';
 
+const SOFTWARE_VERISON = '0.1.5';
+
 const formatedTimestamp = () => {
   const d = new Date()
   const date = d.toISOString().split('T')[0];
@@ -183,10 +185,17 @@ function Mapz(props: any) {
 
   const calculateCameraConstraint = () => {
     if (cameraMode === 'default' || cameraMode === undefined) {
-      return undefined;
+      return {
+        width: 1500,
+        height: 1500,
+        screenshotQuality: 1.0
+      };
     }
     if (cameraMode === "rear") {
       return {
+        width: 1500,
+        height: 1500,
+        screenshotQuality: 1.0,
         facingMode: { exact: "environment" }
       }
     }
@@ -401,6 +410,7 @@ function Mapz(props: any) {
       <div style={{ position: 'relative', top: FLOATING_PADDING, left: FLOATING_PADDING }}>
         {userButton}
       </div>
+      <p style={{color: 'black'}}>Version: {SOFTWARE_VERISON}</p>
       <AwesomeButton onPress={() => {
         setSettingsOpen(false);
       }} style={{
