@@ -14,7 +14,7 @@ const api = 'https://y0qjfq7023.execute-api.us-east-1.amazonaws.com/';
 
 const FLOATING_PADDING = '10px';
 
-const SOFTWARE_VERISON = '0.1.5';
+const SOFTWARE_VERISON = '0.1.6';
 
 const formatedTimestamp = () => {
   const d = new Date()
@@ -237,19 +237,35 @@ function Mapz(props: any) {
     return <div style={{ position: 'fixed', top: '0px', left: '0px', width: '100vw', height: '100vh', display: 'flex', flexDirection: 'column', zIndex: '9999', backgroundColor: '#FFFFF2', borderRadius: '15px', border: '1px solid rgba(0,0,0,0.3)' }}>
       <Webcam style={{ maxHeight: '70vh' }} ref={webcamRef} videoConstraints={calculateCameraConstraint()} audio={false} screenshotFormat="image/jpeg" />
       {renderCameraConstraintControl()}
-      {renderCaptureMeta()}
-      <AwesomeButton onPress={() => {
-        handleCaptureMushroom({
-          //@ts-ignore
-          longitude: gpsLocation.longitude,
-          //@ts-ignore
-          latitude: gpsLocation.latitude,
-          date: formatedTimestamp()
-        })
-      }} style={{
-        color: 'white',
-        width: '100%'
-      }} type="primary">Save</AwesomeButton>
+      <div style={{ display: 'flex', flexDirection: 'column', width: '100%', color: 'black', textAlign: 'left', padding: '5px' }}>
+
+        <div style={{ display: 'flex', flexDirection: 'row', width: '100%' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', width: '70%' }}>
+            <p style={{ margin: '0px', color: 'rgba(0,0,0,0.8)', fontStyle: 'italic' }}
+            //@ts-ignore
+            >Longitude: {gpsLocation.longitude}</p>
+            <p style={{ margin: '0px', color: 'rgba(0,0,0,0.8)', fontStyle: 'italic' }}
+            //@ts-ignore
+            >Latitude: {gpsLocation.latitude}</p>
+            <p style={{ margin: '0px', color: 'rgba(0,0,0,0.8)', fontStyle: 'italic' }}>Date: {formatedTimestamp()}</p>
+          </div>
+          <AwesomeButton onPress={() => {
+            handleCaptureMushroom({
+              //@ts-ignore
+              longitude: gpsLocation.longitude,
+              //@ts-ignore
+              latitude: gpsLocation.latitude,
+              date: formatedTimestamp()
+            })
+          }} style={{
+            color: 'white',
+            width: '100%'
+          }} type="primary"><img className='white-svg' src="camera.svg" style={{width: '50px', height: '50px', padding: '5px'}} alt="camera" /></AwesomeButton>
+
+        </div>
+
+      </div>
+
       <AwesomeButton onPress={() => {
         setCapturingMushroom(false);
       }} style={{
@@ -377,7 +393,7 @@ function Mapz(props: any) {
       width={window.innerWidth}
       //@ts-ignore
       center={mapBounds ? mapBounds : [gpsLocation.latitude, gpsLocation.longitude]}
-      onBoundsChanged={({center}) => {
+      onBoundsChanged={({ center }) => {
         //@ts-ignore
         setMapBounds(center);
       }}
@@ -410,7 +426,7 @@ function Mapz(props: any) {
       <div style={{ position: 'relative', top: FLOATING_PADDING, left: FLOATING_PADDING }}>
         {userButton}
       </div>
-      <p style={{color: 'black'}}>Version: {SOFTWARE_VERISON}</p>
+      <p style={{ color: 'black' }}>Version: {SOFTWARE_VERISON}</p>
       <AwesomeButton onPress={() => {
         setSettingsOpen(false);
       }} style={{

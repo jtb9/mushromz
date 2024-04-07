@@ -48,6 +48,11 @@
   height: 25px;
 }
 
+.white-svg, .white-svg svg, .white-svg img {
+  fill: #FFFFF2 !important;
+  color: #FFFFF2 !important;
+}
+
 .img-button:hover {
   cursor: pointer;
   color: #FFFFF2;
