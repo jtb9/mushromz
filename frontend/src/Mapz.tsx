@@ -14,7 +14,7 @@ const api = 'https://y0qjfq7023.execute-api.us-east-1.amazonaws.com/';
 
 const FLOATING_PADDING = '10px';
 
-const SOFTWARE_VERISON = '0.1.7';
+const SOFTWARE_VERISON = '0.1.8';
 
 const formatedTimestamp = () => {
   const d = new Date()
@@ -168,19 +168,6 @@ function Mapz(props: any) {
       //@ts-ignore
       colors={colorRingColors}
     /></div>
-  }
-
-  const renderCaptureMeta = () => {
-    return <div style={{ display: 'flex', flexDirection: 'column', width: '300px', color: 'black', textAlign: 'left', padding: '5px' }}>
-
-      <p style={{ margin: '0px', color: 'rgba(0,0,0,0.8)', fontStyle: 'italic' }}
-      //@ts-ignore
-      >Longitude: {gpsLocation.longitude}</p>
-      <p style={{ margin: '0px', color: 'rgba(0,0,0,0.8)', fontStyle: 'italic' }}
-      //@ts-ignore
-      >Latitude: {gpsLocation.latitude}</p>
-      <p style={{ margin: '0px', color: 'rgba(0,0,0,0.8)', fontStyle: 'italic' }}>Date: {formatedTimestamp()}</p>
-    </div>
   }
 
   const calculateCameraConstraint = () => {
