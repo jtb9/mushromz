@@ -14,7 +14,7 @@ const api = 'https://y0qjfq7023.execute-api.us-east-1.amazonaws.com/';
 
 const FLOATING_PADDING = '10px';
 
-const SOFTWARE_VERISON = '0.1.10';
+const SOFTWARE_VERISON = '0.1.11';
 
 const formatedTimestamp = () => {
   const d = new Date()
@@ -216,7 +216,7 @@ function Mapz(props: any) {
         setCapturingMushroom(true)
       }} style={{
         color: 'white',
-        width: '80px',
+        width: '50px',
         margin: 'auto'
       }} type="primary">+</AwesomeButton>
     }
