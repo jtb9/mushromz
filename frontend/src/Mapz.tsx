@@ -14,7 +14,7 @@ const api = 'https://y0qjfq7023.execute-api.us-east-1.amazonaws.com/';
 
 const FLOATING_PADDING = '10px';
 
-const SOFTWARE_VERISON = '0.1.6';
+const SOFTWARE_VERISON = '0.1.7';
 
 const formatedTimestamp = () => {
   const d = new Date()
@@ -385,6 +385,10 @@ function Mapz(props: any) {
         </Marker>
       )
     }
+
+    //@ts-ignore
+    markers.push(<Marker anchor={[gpsLocation.latitude, gpsLocation.longitude]} color="#791E94" width={40} />);
+
     //@ts-ignore
     return <Map
       animate={true}
