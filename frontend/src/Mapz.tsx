@@ -30,6 +30,7 @@ function Mapz(props: any) {
   // const signOutButton = props.signOutButton;
 
   const webcamRef = React.useRef(null);
+  const mapRef = React.useRef(null);
   const [gpsLocation, setGpsLocation] = useState(0);
   // eslint-disable-next-line
   const [gpsDelay, setGPSDelay] = useState(1500);
@@ -42,6 +43,7 @@ function Mapz(props: any) {
   const [cameraMode, setCameraMode] = useState('default');
   const [selectedMushroom, setSelectedMushroom] = useState(undefined);
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [mapBounds, setMapBounds] = useState(undefined);
 
   useInterval(
     () => {
@@ -224,7 +226,7 @@ function Mapz(props: any) {
     }
 
     return <div style={{ position: 'fixed', top: '0px', left: '0px', width: '100vw', height: '100vh', display: 'flex', flexDirection: 'column', zIndex: '9999', backgroundColor: '#FFFFF2', borderRadius: '15px', border: '1px solid rgba(0,0,0,0.3)' }}>
-      <Webcam style={{maxHeight: '70vh'}} ref={webcamRef} videoConstraints={calculateCameraConstraint()} audio={false} screenshotFormat="image/jpeg" />
+      <Webcam style={{ maxHeight: '70vh' }} ref={webcamRef} videoConstraints={calculateCameraConstraint()} audio={false} screenshotFormat="image/jpeg" />
       {renderCameraConstraintControl()}
       {renderCaptureMeta()}
       <AwesomeButton onPress={() => {
@@ -280,10 +282,10 @@ function Mapz(props: any) {
         zIndex: '9999999'
       }}>
         <div style={{ display: 'flex', flexDirection: 'column', height: '100%', zIndex: '9999', backgroundColor: '#FFFFF2', borderRadius: '15px', border: '1px solid rgba(0,0,0,0.3)' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', height: '100%', color: 'black', textAlign: 'left', padding: '5px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', height: '100%', color: 'black', textAlign: 'left', padding: '5px', overflowY: 'scroll' }}>
             <img
               //@ts-ignore
-              src={selectedMushroom.image} style={{width: '100vw'}} alt="" />
+              src={selectedMushroom.image} style={{ width: '100vw', maxWidth: '700px' }} alt="" />
             <p style={{ margin: '0px', color: 'rgba(0,0,0,0.8)', fontStyle: 'italic' }}
             //@ts-ignore
             >Longitude: {selectedMushroom.longitude}</p>
@@ -359,10 +361,32 @@ function Mapz(props: any) {
       )
     }
     //@ts-ignore
-    return <Map animate={true} key={'mu-' + markers.length} provider={osm} width={window.innerWidth} height={window.innerHeight} defaultCenter={[gpsLocation.latitude, gpsLocation.longitude]} defaultZoom={16}>
+    return <Map
+      animate={true}
+      key={'mu-' + markers.length}
+      provider={osm}
+      width={window.innerWidth}
+      //@ts-ignore
+      center={mapBounds ? mapBounds : [gpsLocation.latitude, gpsLocation.longitude]}
+      onBoundsChanged={({center}) => {
+        //@ts-ignore
+        setMapBounds(center);
+      }}
+      height={window.innerHeight}
+      ref={mapRef}
+      defaultZoom={16}>
       {markers}
     </Map>
-  }, [gpsLocation, mushrooms]);
+  }, [gpsLocation, mushrooms, mapBounds]);
+
+  const renderGPSControlsHover = () => {
+    return <div style={{ position: 'absolute', bottom: FLOATING_PADDING, left: FLOATING_PADDING }}>
+      <img className='img-button' style={{ opacity: '0.5' }} onClick={() => {
+        //@ts-ignore
+        setMapBounds([gpsLocation.latitude, gpsLocation.longitude]);
+      }} alt="settings menu" src="gps.svg" />
+    </div>
+  }
 
   const renderSettingsHover = () => {
     if (settingsOpen === false) {
@@ -393,6 +417,7 @@ function Mapz(props: any) {
       {renderControlHover()}
       {renderLoadingIndicator()}
       {renderSettingsHover()}
+      {renderGPSControlsHover()}
     </div>
   };
 
