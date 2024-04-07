@@ -14,7 +14,7 @@ const api = 'https://y0qjfq7023.execute-api.us-east-1.amazonaws.com/';
 
 const FLOATING_PADDING = '10px';
 
-const SOFTWARE_VERISON = '0.1.8';
+const SOFTWARE_VERISON = '0.1.9';
 
 const formatedTimestamp = () => {
   const d = new Date()
@@ -173,15 +173,15 @@ function Mapz(props: any) {
   const calculateCameraConstraint = () => {
     if (cameraMode === 'default' || cameraMode === undefined) {
       return {
-        width: 1500,
-        height: 1500,
+        width: 2000,
+        height: 2000,
         screenshotQuality: 1.0
       };
     }
     if (cameraMode === "rear") {
       return {
-        width: 1500,
-        height: 1500,
+        width: 2000,
+        height: 2000,
         screenshotQuality: 1.0,
         facingMode: { exact: "environment" }
       }
@@ -222,7 +222,7 @@ function Mapz(props: any) {
     }
 
     return <div style={{ position: 'fixed', top: '0px', left: '0px', width: '100vw', height: '100vh', display: 'flex', flexDirection: 'column', zIndex: '9999', backgroundColor: '#FFFFF2', borderRadius: '15px', border: '1px solid rgba(0,0,0,0.3)' }}>
-      <Webcam style={{ maxHeight: '70vh' }} ref={webcamRef} videoConstraints={calculateCameraConstraint()} audio={false} screenshotFormat="image/jpeg" />
+      <Webcam style={{ maxHeight: '70vh' }} width={2000} height={2000} ref={webcamRef} videoConstraints={calculateCameraConstraint()} audio={false} screenshotFormat="image/jpeg" />
       {renderCameraConstraintControl()}
       <div style={{ display: 'flex', flexDirection: 'column', width: '100%', color: 'black', textAlign: 'left', padding: '5px' }}>
 
